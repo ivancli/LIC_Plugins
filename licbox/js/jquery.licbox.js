@@ -87,7 +87,7 @@
         move_button_container: null,
 
         //close button html
-        close_button_structure: '<a href="#" class="btn-close"></a>',
+        close_button_structure: '<span class="btn-close"></span>',
 
         //move button html
         move_button_structure: '<span class="btn-move"></span>',
