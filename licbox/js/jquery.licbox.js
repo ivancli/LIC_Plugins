@@ -26,7 +26,7 @@
         width: 200,
 
         //licbox height
-        height: 200,
+        height: null,
 
         //licbox margin-left
         margin_left: -100,
@@ -141,12 +141,16 @@
                 }
 
                 //adjust licbox position
+
+                if(!settings.height)
+                {
+                    settings.height = settings.main_container.height();
+                }
                 settings.margin_left = -(settings.width / 2);
                 settings.margin_top = -(settings.height / 2);
 
                 settings.main_container.css({
                     'width': settings.width,
-                    'height': settings.height,
                     'margin-left': settings.margin_left,
                     'margin-top': settings.margin_top
                 });
