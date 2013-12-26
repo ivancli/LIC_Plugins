@@ -14,16 +14,15 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#licbox").licbox({
-                before_show: function () {
-                    for (i = 0; i < 2000; i++)
-                        console.log("before show");
-                },
-                after_show: function(){
-                    console.log("after show");
-                },
-                width: 500,
-                height: 500
+                width: 250,
+                height: 250,
+                animation_velocity: 1000,
+                show_close_button: true,
+                show_move_button: true
             });
+            $("#testing-box").licbox({
+                show_move_button:true
+            })
         })
     </script>
 </head>

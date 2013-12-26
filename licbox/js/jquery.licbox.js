@@ -34,6 +34,8 @@
         //licbox margin-top
         margin_top: -100,
 
+        animation_velocity: 500,
+
         /**
          * licbox callback functions
          */
@@ -64,6 +66,9 @@
         //show close button
         show_close_button: true,
 
+        //show move button
+        show_move_button: false,
+
         //backdrop
         backdrop: true,
 
@@ -79,8 +84,13 @@
 
         close_button_container: null,
 
+        move_button_container: null,
+
         //close button html
         close_button_structure: '<a href="#" class="btn-close"></a>',
+
+        //move button html
+        move_button_structure: '<span class="btn-move"></span>',
 
         //backdrop html
         backdrop_structure: '<div class="licbox-backdrop"></div>',
@@ -89,7 +99,18 @@
         /**
          * licbox variables
          */
-        settings: null
+        settings: null,
+
+        mousedown_x: null,
+
+        mousedown_y: null,
+
+        origin_offset_x: null,
+
+        origin_offset_y: null,
+
+        is_mousedown: false
+
     };
 
     $.fn.licbox = function (suppliedSettings, options) {
@@ -106,7 +127,9 @@
             //initialise licbox
             var init = function () {
                 //add main class to target
-                if (!settings.main_container.hasClass("licbox")) settings.main_container.addClass("licbox");
+                if (!settings.main_container.hasClass("licbox")) {
+                    settings.main_container.addClass("licbox");
+                }
                 settings.main_container.hide();
                 //add close button to target
                 if (settings.show_close_button) {
@@ -116,6 +139,7 @@
                         hide();
                     })
                 }
+
                 //adjust licbox position
                 settings.margin_left = -(settings.width / 2);
                 settings.margin_top = -(settings.height / 2);
@@ -127,55 +151,123 @@
                     'margin-top': settings.margin_top
                 });
 
-
                 $this.data('licbox', $this);
                 $this.data('licbox-show', show);
                 $this.data('licbox-hide', hide);
                 $this.data('licbox-toggle', toggle);
 
 
-                if (settings.auto_show) {
+                if (settings.show_move_button) {
+                    settings.move_button_container = $(settings.move_button_structure);
+                    settings.main_container.append(settings.move_button_container);
                     /**
-                     * after everything done
-                     * show licbox
+                     * a series of mouse down up move events
                      */
+                    settings.move_button_container.mousedown(function (e) {
+                        settings.is_mousedown = true;
+                        settings.mousedown_x = e.clientX;
+                        settings.mousedown_y = e.clientY;
+                        settings.origin_offset_x = settings.main_container.offset().left;
+                        settings.origin_offset_y = settings.main_container.offset().top;
+                        settings.main_container.css("opacity", "0.5");
+
+                    });
+
+                    $('body').mousemove(function (e) {
+                        if (settings.is_mousedown) {
+                            var move_to_x = settings.origin_offset_x - (settings.mousedown_x - e.clientX) - settings.margin_left;
+                            var move_to_y = settings.origin_offset_y - (settings.mousedown_y - e.clientY) - settings.margin_top;
+                            settings.main_container.css({
+                                'left': move_to_x + "px",
+                                'top': move_to_y + "px"
+                            });
+                        }
+                    });
+
+                    $('body').mouseup(function (e) {
+                        settings.is_mousedown = false;
+                        settings.main_container.css("opacity", "1");
+                    });
+
+                }
+
+                if (settings.auto_show) {
                     show();
                 }
             };
 
             var show = function () {
-                if ($.isFunction(settings.before_show)) settings.before_show();
+                if ($.isFunction(settings.before_show)) {
+                    settings.before_show();
+                }
 
-                if (settings.backdrop) show_backdrop();
-                else hide_backdrop();
-                settings.main_container.show();
-                if ($.isFunction(settings.after_show)) settings.after_show();
+                if (settings.backdrop) {
+                    show_backdrop();
+                }
+                else {
+                    hide_backdrop();
+                }
+
+                if (settings.animation) {
+                    settings.main_container.fadeIn(settings.animation_velocity);
+                }
+                else {
+                    settings.main_container.show();
+                }
+
+                if ($.isFunction(settings.after_show)) {
+                    settings.after_show();
+                }
             };
 
             var hide = function () {
-                if ($.isFunction(settings.before_hide)) settings.before_hide();
+                if ($.isFunction(settings.before_hide)) {
+                    settings.before_hide();
+                }
 
-                settings.main_container.hide();
+                if (settings.animation) {
+                    settings.main_container.fadeOut(settings.animation_velocity);
+                }
+                else {
+                    settings.main_container.hide();
+                }
                 hide_backdrop();
 
-                if ($.isFunction(settings.after_hide)) settings.after_hide();
+                if ($.isFunction(settings.after_hide)) {
+                    settings.after_hide();
+                }
             };
 
             var toggle = function () {
-                if ($this.is(":visible"))
+                if ($this.is(":visible")) {
                     hide();
-                else
+                }
+                else {
                     show();
+                }
             }
 
             var show_backdrop = function () {
                 settings.backdrop_container = $(settings.backdrop_structure);
                 $('body').append(settings.backdrop_container);
-                settings.backdrop_container.show();
+
+                if (settings.animation) {
+                    settings.backdrop_container.fadeIn(settings.animation_velocity);
+                }
+                else {
+                    settings.backdrop_container.show();
+                }
             };
 
             var hide_backdrop = function () {
-                settings.backdrop_container.remove();
+                if (settings.animation) {
+                    settings.backdrop_container.fadeOut(settings.animation_velocity, function () {
+                        $(this).remove();
+                    })
+                }
+                else {
+                    settings.backdrop_container.remove();
+                }
             }
 
 
