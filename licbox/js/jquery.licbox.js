@@ -1,7 +1,7 @@
 /**
  * Created by Ivan on 24/12/13.
+ * licbox version 1.3
  */
-
 'use strict';
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -72,6 +72,8 @@
         //backdrop
         backdrop: true,
 
+        header: false,
+
 
         /**
          * HTML components
@@ -85,6 +87,9 @@
         close_button_container: null,
 
         move_button_container: null,
+
+        //header html
+        header_structure: '<div class="licbox-header"></div>',
 
         //close button html
         close_button_structure: '<span class="btn-close"></span>',
@@ -131,6 +136,12 @@
                     settings.main_container.addClass("licbox");
                 }
                 settings.main_container.hide();
+
+                //add header to target
+                if (settings.header) {
+                    settings.main_container.prepend(settings.header_structure);
+                }
+
                 //add close button to target
                 if (settings.show_close_button) {
                     settings.close_button_container = $(settings.close_button_structure);
@@ -142,8 +153,7 @@
 
                 //adjust licbox position
 
-                if(!settings.height)
-                {
+                if (!settings.height) {
                     settings.height = settings.main_container.height();
                 }
                 settings.margin_left = -(settings.width / 2);
