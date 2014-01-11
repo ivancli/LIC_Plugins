@@ -1,0 +1,228 @@
+<style>
+    #ie-tools-panel {
+        float: left;
+    }
+
+    #ie-tools-panel table {
+        margin-left: 10px;
+    }
+
+    #ie-adjust-tools a, #ie-effect-tools a {
+        display: inline-block;
+        font-size: 12px;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: #000000;
+    }
+
+    #btn-color {
+        background-color: #000000;
+    }
+
+    .selected-tool {
+        opacity: 0.5;
+    }
+
+    #image-container {
+        float: left;
+        margin-left: 5px;
+        width: 500px;
+        height: 500px;
+        position: relative;
+    }
+
+    #image-container input {
+        width: 100px;
+        background: transparent;
+        border: none;
+        z-index: 102;
+        position: absolute;
+        display: none;
+        resize: none
+    }
+
+    #backup-image {
+        position: absolute;
+        z-index: 101 !important;
+    }
+
+    #image {
+        z-index: 100 !important;
+    }
+
+    #tools-container .accordion-heading a {
+        text-decoration: none;
+    }
+</style>
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3>Edit Image</h3>
+</div>
+<div class="modal-body">
+    <div id="tools-container">
+        <div class="accordion" id="ie-tools-panel" style="width: 135px;">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#ie-tools-panel"
+                       href="#ie-paint-tools">
+                        Paint Tools
+                    </a>
+                </div>
+                <div id="ie-paint-tools" class="accordion-body collapse in">
+                    <div class="accordion-inner" style="text-align: center">
+                        <table>
+                            <tr>
+                                <td>
+                                    <a title="Click to Load Image from Computer">
+                                        <label for="input-image">
+                                            <img width="40" height="40"
+                                                 src="/templates/image_editor/assets/icons/icon-open.png">
+                                            <input type="file" name="input-image" id="input-image"
+                                                   style="display: none;">
+                                        </label>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a id="output-image" title="Click to Save Image">
+                                        <img width="40" height="40"
+                                             src="/templates/image_editor/assets/icons/icon-save.png">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a id="btn-pencil" title="Pencil"><img width="40" height="40"
+                                                                           src="/templates/image_editor/assets/icons/icon-pencil.png"/></a>
+                                </td>
+                                <td>
+                                    <a id="btn-eraser" title="Eraser"><img width="40" height="40"
+                                                                           src="/templates/image_editor/assets/icons/icon-eraser.png"/></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a id="btn-line" title="Straight Line"><img width="40" height="40"
+                                                                                src="/templates/image_editor/assets/icons/icon-line.png"/></a>
+                                </td>
+                                <td>
+                                    <a id="btn-arrow" title="Arrow Line"><img width="40" height="40"
+                                                                              src="/templates/image_editor/assets/icons/icon-arrow.png"/></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a id="btn-square" title="Rectangle"><img width="40" height="40"
+                                                                              src="/templates/image_editor/assets/icons/icon-square.png"/></a>
+                                </td>
+                                <td>
+                                    <a id="btn-circle" title="Circle"><img width="40" height="40"
+                                                                           src="/templates/image_editor/assets/icons/icon-circle.png"/></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a id="btn-text" title="Text"><img width="40" height="40"
+                                                                       src="/templates/image_editor/assets/icons/icon-text.png"/></a>
+                                </td>
+                                <td>
+                                    <a id="btn-eyedropper" title="Eyedropper"><img width="40" height="40"
+                                                                                   src="/templates/image_editor/assets/icons/icon-eyedropper.png"/></a>
+                                </td>
+                            </tr>
+                        </table>
+                        <img id="btn-color" width="80" height="80"
+                             src="/templates/image_editor/assets/icons/icon-colour.png"/>
+                        <label id="thickness-label" for="range-line-thickness"
+                               style="font-size: 10px;">Thickness:
+                            1</label>
+                        <input type="range" id="range-line-thickness" min="1" max="15" value="1"
+                               style="width: 80px"/>
+                        <select id="text-size" title="Text Size"
+                                style="display: none; width: 80px;"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#ie-tools-panel"
+                       href="#ie-adjust-tools">
+                        Adjust Tools
+                    </a>
+                </div>
+                <div id="ie-adjust-tools" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <a id="btn-flip-v">
+                            <img src="/templates/image_editor/assets/icons/btn-flip-v.png" width="20"> Flip Vertical
+                        </a>
+                        <a id="btn-flip-h">
+                            <img src="/templates/image_editor/assets/icons/btn-flip-h.png" width="20"> Flip Horizontal
+                        </a>
+                        <a id="btn-desaturate">
+                            <img src="/templates/image_editor/assets/icons/btn-desaturate.png" width="20"> Desaturate
+                        </a>
+                        <a id="btn-brightness">
+                            <img src="/templates/image_editor/assets/icons/btn-brightness.png" width="20"> Brightness
+                        </a>
+                        <a id="btn-contrast">
+                            <img src="/templates/image_editor/assets/icons/btn-contrast.png" width="20"> Contrast
+                        </a>
+                        <a id="btn-hue">
+                            <img src="/templates/image_editor/assets/icons/btn-hue.png" width="20"> Hue
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#ie-tools-panel"
+                       href="#ie-effect-tools">
+                        Effect Tools
+                    </a>
+                </div>
+                <div id="ie-effect-tools" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <a id="btn-blur">
+                            <img src="/templates/image_editor/assets/icons/btn-blur.png" width="20"> Blur
+                        </a>
+                        <a id="btn-unsharp-mask">
+                            <img src="/templates/image_editor/assets/icons/btn-unsharp-mask.png" width="20"> Unsharp
+                            Mask
+                        </a>
+                        <a id="btn-posterise">
+                            <img src="/templates/image_editor/assets/icons/btn-posterise.png" width="20"> Posterise
+                        </a>
+                        <a id="btn-invert">
+                            <img src="/templates/image_editor/assets/icons/btn-invert.png" width="20"> Invert
+                        </a>
+                        <a id="btn-sepia-tone">
+                            <img src="/templates/image_editor/assets/icons/btn-sepia-tone.png" width="20"> Sepia Tone
+                        </a>
+                        <a id="btn-edge-detect">
+                            <img src="/templates/image_editor/assets/icons/btn-edge-detect.png" width="20"> Edge Detect
+                        </a>
+                        <a id="btn-laplace-edge">
+                            <img src="/templates/image_editor/assets/icons/btn-laplace-edges.png" width="20"> Laplace
+                            Edge
+                        </a>
+                        <a id="btn-emboss">
+                            <img src="/templates/image_editor/assets/icons/btn-emboss.png" width="20"> Emboss
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="image-container">
+        <input type="text" id="textbox" title="press enter to commit adding text or ESC to cancel"
+               onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"/>
+        <canvas id="backup-image" width="0" height="0"></canvas>
+        <canvas id="image" width="0" height="0"></canvas>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/templates/image_editor/js/image-editor.js"></script>
+<script type="text/javascript" src="/templates/image_editor/js/colorpicker.js"></script>
+

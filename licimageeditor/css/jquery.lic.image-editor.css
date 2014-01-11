@@ -1,0 +1,355 @@
+.lic_imageditor-backdrop {
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    background-color: #000000;
+    opacity: 0.7;
+    z-index: 9999 !important;
+}
+
+.lic_imageeditor-box {
+    background-color: #808080;
+    border-radius: 5px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    z-index: 10000 !important;
+}
+
+.lic_imageeditor-box .header {
+    background-color: #D3D3D3;
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    box-shadow: 0 0 20px #999999;
+    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+    height: 25px;
+    text-align: center;
+}
+
+.lic_imageeditor-box .header .btn-close {
+    background: url("../img/btn-close.png") no-repeat scroll 0 0 / 20px 20px rgba(0, 0, 0, 0);
+    cursor: pointer;
+    height: 20px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 20px;
+}
+
+.lic_imageeditor-box .tool-container {
+    display: inline-block;
+    margin: 10px 10px 30px;
+    text-align: left;
+    width: 150px;
+}
+
+.lic_imageeditor-box .tool-container label {
+    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    padding: 5px 20px;
+    position: relative;
+    z-index: 20;
+    display: block;
+    height: 30px;
+    cursor: pointer;
+    color: #777;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+    line-height: 30px;
+    /*font-size: 19px;*/
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #ffffff), color-stop(100%, #eaeaea));
+    background: -webkit-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
+    background: -o-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
+    background: -ms-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
+    background: linear-gradient(top, #ffffff 1%, #eaeaea 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eaeaea', GradientType=0);
+    box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3), 1px 0px 0px 0px rgba(255, 255, 255, 0.9) inset, 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.lic_imageeditor-box .tool-container label:hover {
+    background: #fff;
+}
+
+.lic_imageeditor-box .tool-container input:checked + label,
+.lic_imageeditor-box .tool-container input:checked + label:hover {
+    background: #c6e1ec;
+    color: #3d7489;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3), 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.lic_imageeditor-box .tool-container label:hover:after,
+.lic_imageeditor-box .tool-container input:checked + label:hover:after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 13px;
+    top: 7px;
+    background: transparent url(../img/arrow_down.png) no-repeat center center;
+}
+
+.lic_imageeditor-box .tool-container input:checked + label:hover:after {
+    background-image: url(../img/arrow_up.png);
+}
+
+.lic_imageeditor-box .tool-container input {
+    display: none;
+}
+
+.lic_imageeditor-box .tool-container article {
+    background: rgba(255, 255, 255, 0.5);
+    margin-top: -1px;
+    overflow: hidden;
+    height: 0px;
+    position: relative;
+    z-index: 10;
+    -webkit-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+    -moz-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+    -o-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+    -ms-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+}
+
+.lic_imageeditor-box .tool-container article a {
+    cursor: pointer;
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-left: 11px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.lic_imageeditor-box .tool-container article p {
+    font-style: italic;
+    color: #777;
+    line-height: 23px;
+    font-size: 14px;
+    padding: 20px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.lic_imageeditor-box .tool-container input:checked ~ article {
+    -webkit-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    -moz-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    -o-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    -ms-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint input:checked ~ article.ac-content {
+    height: 375px;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust input:checked ~ article.ac-content {
+    height: 250px;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect input:checked ~ article.ac-content {
+    height: 300px;
+}
+
+.lic_imageeditor-box .canvas-container {
+    display: inline-block;
+    margin-top: 10px;
+    vertical-align: top;
+}
+
+.lic_imageeditor-box .canvas-container .ondraw-image {
+    position: absolute;
+    z-index: 10002;
+}
+
+.lic_imageeditor-box .canvas-container .actual-image {
+    position: absolute;
+    z-index: 10001;
+}
+
+.lic_imageeditor-box .tool-container .tool-paint table {
+    margin: 10px auto 0;
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-load-image {
+    background: url("../img/icons/icon-open.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-save-image {
+    background: url("../img/icons/icon-save.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-pencil {
+    background: url("../img/icons/icon-pencil.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-eraser {
+    background: url("../img/icons/icon-eraser.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-line {
+    background: url("../img/icons/icon-line.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-arrow {
+    background: url("../img/icons/icon-arrow.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-square {
+    background: url("../img/icons/icon-square.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-circle {
+    background: url("../img/icons/icon-circle.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-text {
+    background: url("../img/icons/icon-text.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-eyedropper {
+    background: url("../img/icons/icon-eyedropper.png") no-repeat scroll 0 0 / 40px 40px rgba(0, 0, 0, 0);
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .btn-color {
+    background: #000000;
+    display: block;
+    margin: 5px auto;
+    cursor: pointer;
+}
+
+.lic_imageeditor-box .tool-container .tool-text-wrapper {
+    margin-left: 7px;
+    vertical-align: middle;
+    color: #3D7489;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust .btn-flip-v .tool-icon {
+    background: url("../img/icons/btn-flip-v.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust .btn-flip-h .tool-icon {
+    background: url("../img/icons/btn-flip-h.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust .btn-desaturate .tool-icon {
+    background: url("../img/icons/btn-desaturate.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust .btn-brightness .tool-icon {
+    background: url("../img/icons/btn-brightness.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust .btn-contrast .tool-icon {
+    background: url("../img/icons/btn-contrast.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-adjust .btn-hue .tool-icon {
+    background: url("../img/icons/btn-hue.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-blur .tool-icon {
+    background: url("../img/icons/btn-blur.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-unsharp-mask .tool-icon {
+    background: url("../img/icons/btn-unsharp-mask.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-posterise .tool-icon {
+    background: url("../img/icons/btn-posterise.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-invert .tool-icon {
+    background: url("../img/icons/btn-invert.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-sepia-tone .tool-icon {
+    background: url("../img/icons/btn-sepia-tone.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-edge-detect .tool-icon {
+    background: url("../img/icons/btn-edge-detect.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-laplace-edge .tool-icon {
+    background: url("../img/icons/btn-laplace-edges.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-effect .btn-emboss .tool-icon {
+    background: url("../img/icons/btn-emboss.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lic_imageeditor-box .tool-container .tool-paint .range-line-thickness {
+    border-radius: 15px;
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+}
+
+.lic_imageeditor-box .tool-container .tool-paint table tr td span {
+    width: 40px;
+    height: 40px;
+    display: block;
+    cursor: pointer;
+}
+
