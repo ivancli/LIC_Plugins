@@ -29,7 +29,7 @@
     min-height: 100px;
 }
 
-.advance-option-box .advance-option-footer{
+.advance-option-box .advance-option-footer {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -357,7 +357,7 @@
     vertical-align: middle;
 }
 
-.lic_imageeditor-box .tool-container .tool-effect .btn-noise .tool-icon{
+.lic_imageeditor-box .tool-container .tool-effect .btn-noise .tool-icon {
     background: url("../img/icons/btn-noise.png") no-repeat scroll 0 0 / 25px 25px rgba(0, 0, 0, 0);
     width: 25px;
     height: 25px;
@@ -401,6 +401,14 @@
     height: 40px;
     display: block;
     cursor: pointer;
+}
+
+.lic_imageeditor-box .tool-container .selected-tool {
+    opacity: 0.5;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0px 0px 10px 8px rgba(0, 115, 255, 0.55);
+    -moz-box-shadow: inset 0px 0px 10px 8px rgba(0, 115, 255, 0.55);
+    box-shadow: inset 0px 0px 10px 8px rgba(0, 115, 255, 0.55);
 }
 
 /*Color Picker style start from here*/

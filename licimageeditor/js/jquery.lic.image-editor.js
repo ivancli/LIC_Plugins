@@ -36,79 +36,63 @@
         advance_option_container: null,
         advance_option_backdrop_container: null,
 
+        selected_tool: null,
+
+        btn_pencil: null,
+        btn_eraser: null,
+        btn_line: null,
+        btn_arrow: null,
+        btn_square: null,
+        btn_circle: null,
+        btn_text: null,
+        btn_eyedropper: null,
         btn_color: null,
-
+        range_thickness: null,
         btn_load_image: null,
-
         btn_save_image: null,
-
         btn_flip_v: null,
-
         btn_flip_h: null,
-
         btn_desaturate: null,
-
         btn_brightness: null,
-
         btn_contrast: null,
-
         btn_hue: null,
-
         btn_blur: null,
-
         btn_unsharp_mask: null,
-
         btn_posterise: null,
-
         btn_invert: null,
-
         btn_sepia_tone: null,
-
         btn_edge_detect: null,
-
         btn_noise: null,
-
         btn_solarise: null,
-
         btn_glow: null,
 
         file_input: null,
 
         jav_ondraw_canvas: null,
-
         jav_actual_canvas: null,
-
         jav_ondraw_context: null,
-
         jav_actual_context: null,
+
+        is_mouse_down: false,
+
+        mouse_down_x: null,
+        mouse_down_y: null,
 
         /**
          * image editor options
          */
         animation: true,
-
         animation_velocity: 500,
-
         auto_show: true,
-
         backdrop: true,
-
         title: null,
-
         show_close_button: true,
-
         show_paint_tools: true,
-
         show_adjust_tools: true,
-
         show_effect_tools: true,
-
         canvas_width: 500,
-
         canvas_height: 500,
-
         image_source: null,
-
         on_save: null,
 
         /**
@@ -363,9 +347,18 @@
                 /**
                  * assign variables
                  */
-                settings.btn_color = settings.toolbar_container.find(".btn-color");
                 settings.btn_load_image = settings.toolbar_container.find(".btn-load-image");
                 settings.btn_save_image = settings.toolbar_container.find(".btn-save-image");
+                settings.btn_pencil = settings.toolbar_container.find(".btn-pencil");
+                settings.btn_eraser = settings.toolbar_container.find(".btn-eraser");
+                settings.btn_line = settings.toolbar_container.find(".btn-line");
+                settings.btn_arrow = settings.toolbar_container.find(".btn-arrow");
+                settings.btn_square = settings.toolbar_container.find(".btn-square");
+                settings.btn_circle = settings.toolbar_container.find(".btn-circle");
+                settings.btn_text = settings.toolbar_container.find(".btn-text");
+                settings.btn_eyedropper = settings.toolbar_container.find(".btn-eyedropper");
+                settings.btn_color = settings.toolbar_container.find(".btn-color");
+                settings.range_thickness = settings.toolbar_container.find(".range-line-thickness");
 
                 settings.btn_flip_v = settings.toolbar_container.find(".btn-flip-v");
                 settings.btn_flip_h = settings.toolbar_container.find(".btn-flip-h");
@@ -422,6 +415,54 @@
                     else {
                         save_image();
                     }
+                });
+
+                settings.btn_pencil.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "pencil";
+                });
+
+                settings.btn_eraser.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "eraser";
+                });
+
+                settings.btn_line.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "line";
+                });
+
+                settings.btn_arrow.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "arrow";
+                });
+
+                settings.btn_square.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "square";
+                });
+
+                settings.btn_circle.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "circle";
+                });
+
+                settings.btn_text.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "text";
+                });
+
+                settings.btn_eyedropper.click(function () {
+                    clear_selected_tool();
+                    $(this).addClass("selected-tool");
+                    settings.selected_tool = "eyedropper";
                 });
 
                 /**
@@ -618,6 +659,45 @@
                     });
                 });
 
+                $("body").mousedown(function (e) {
+                    settings.is_mouse_down = true;
+                    settings.mouse_down_x = e.pageX - settings.actual_image.offset().left;
+                    settings.mouse_down_y = e.pageY - settings.actual_image.offset().top;
+                });
+
+                $("body").mouseup(function () {
+                    settings.is_mouse_down = false;
+                    settings.jav_actual_context.drawImage(settings.jav_ondraw_canvas, 0, 0);
+                    settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                });
+
+                settings.ondraw_image.mousemove(function (e) {
+                    if (settings.selected_tool && settings.is_mouse_down) {
+                        switch (settings.selected_tool) {
+                            case "pencil":
+                                pencil_ondraw(e.pageX, e.pageY);
+                                break;
+                            case "eraser":
+                                eraser_ondraw(e.pageX, e.pageY);
+                                break;
+                            case "line":
+                                line_ondraw(e.pageX, e.pageY);
+                                break;
+                            case "arrow":
+                                arrow_ondraw(e.pageX, e.pageY);
+                                break;
+                            case "square":
+                                console.log("square");
+                                break;
+                            case "circle":
+                                console.log("circle");
+                                break;
+                            case "eyedropper":
+                                console.log("eyedropper");
+                                break;
+                        }
+                    }
+                });
             };
 
             /**
@@ -793,6 +873,151 @@
                 }
             };
 
+            var clear_selected_tool = function () {
+                settings.toolbar_container.find(".tool-paint article span").each(function () {
+                    $(this).removeClass("selected-tool");
+                });
+            };
+
+
+            /**
+             * paint tools functions
+             */
+            var pencil_ondraw = function (mouse_x, mouse_y) {
+                var mouseX = mouse_x - settings.actual_image.offset().left;
+                var mouseY = mouse_y - settings.actual_image.offset().top;
+                var x1 = mouseX,
+                    x2 = settings.mouse_down_x,
+                    y1 = mouseY,
+                    y2 = settings.mouse_down_y;
+                var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
+                if (steep) {
+                    x1 = [y1, y1 = x1][0];
+                    x2 = [y2, y2 = x2][0];
+                }
+                if (x1 > x2) {
+                    x1 = [x2, x2 = x1][0];
+                    y1 = [y2, y2 = y1][0];
+                }
+                var dx = x2 - x1,
+                    dy = Math.abs(y2 - y1),
+                    error = 0,
+                    de = dy / dx,
+                    yStep = -1,
+                    y = y1;
+                if (y1 < y2) {
+                    yStep = 1;
+                }
+                settings.jav_actual_context.fillStyle = settings.btn_color.css("background-color");
+                for (var x = x1; x < x2; x++) {
+                    if (steep) {
+                        settings.jav_actual_context.fillRect(y, x, settings.range_thickness.val(), settings.range_thickness.val());
+                    } else {
+                        settings.jav_actual_context.fillRect(x, y, settings.range_thickness.val(), settings.range_thickness.val());
+                    }
+                    error += de;
+                    if (error >= 0.5) {
+                        y += yStep;
+                        error -= 1.0;
+                    }
+                }
+                settings.mouse_down_x = mouseX;
+                settings.mouse_down_y = mouseY;
+            };
+
+            var eraser_ondraw = function (mouse_x, mouse_y) {
+                var mouseX = mouse_x - settings.actual_image.offset().left;
+                var mouseY = mouse_y - settings.actual_image.offset().top;
+                var x1 = mouseX,
+                    x2 = settings.mouse_down_x,
+                    y1 = mouseY,
+                    y2 = settings.mouse_down_y;
+                var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
+                if (steep) {
+                    x1 = [y1, y1 = x1][0];
+                    x2 = [y2, y2 = x2][0];
+                }
+                if (x1 > x2) {
+                    x1 = [x2, x2 = x1][0];
+                    y1 = [y2, y2 = y1][0];
+                }
+                var dx = x2 - x1,
+                    dy = Math.abs(y2 - y1),
+                    error = 0,
+                    de = dy / dx,
+                    yStep = -1,
+                    y = y1;
+                if (y1 < y2) {
+                    yStep = 1;
+                }
+                for (var x = x1; x < x2; x++) {
+                    if (steep) {
+                        settings.jav_actual_context.clearRect(y, x, settings.range_thickness.val(), settings.range_thickness.val());
+                    } else {
+                        settings.jav_actual_context.clearRect(x, y, settings.range_thickness.val(), settings.range_thickness.val());
+                    }
+                    error += de;
+                    if (error >= 0.5) {
+                        y += yStep;
+                        error -= 1.0;
+                    }
+                }
+                settings.mouse_down_x = mouseX;
+                settings.mouse_down_y = mouseY;
+            };
+
+            var line_ondraw = function (mouse_x, mouse_y) {
+                settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                settings.jav_ondraw_context.lineCap = "round";
+                settings.jav_ondraw_context.strokeStyle = settings.btn_color.css("background-color");
+                settings.jav_ondraw_context.lineWidth = settings.range_thickness.val();
+                settings.jav_ondraw_context.beginPath();
+                settings.jav_ondraw_context.moveTo(settings.mouse_down_x, settings.mouse_down_y);
+                settings.jav_ondraw_context.lineTo(mouse_x - settings.ondraw_image.offset().left, mouse_y - settings.ondraw_image.offset().top);
+                settings.jav_ondraw_context.stroke();
+                settings.jav_ondraw_context.closePath();
+            };
+
+            var arrow_ondraw = function(mouse_x, mouse_y){
+                settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                settings.jav_ondraw_context.lineCap = "round";
+                settings.jav_ondraw_context.strokeStyle = settings.btn_color.css("background-color");
+//                settings.jav_ondraw_context.fillStyle = settings.btn_color.css("background-color");
+                settings.jav_ondraw_context.lineWidth = settings.range_thickness.val();
+
+                settings.jav_ondraw_context.beginPath();
+                settings.jav_ondraw_context.moveTo(settings.mouse_down_x, settings.mouse_down_y);
+                var endX = mouse_x - settings.ondraw_image.offset().left;
+                var endY = mouse_y - settings.ondraw_image.offset().top;
+                settings.jav_ondraw_context.lineTo(endX, endY);
+                settings.jav_ondraw_context.stroke();
+                settings.jav_ondraw_context.closePath();
+                var dx = endX - settings.mouse_down_x;
+                var dy = endY - settings.mouse_down_y;
+                var length = Math.sqrt(dx * dx + dy * dy);
+                var unitDx = dx / length;
+                var unitDy = dy / length;
+                var arrowHeadSize = 5;
+                var arrowPointX1 = endX - unitDx * arrowHeadSize - unitDy * arrowHeadSize;
+                var arrowPointY1 = endY - unitDy * arrowHeadSize + unitDx * arrowHeadSize;
+                var arrowPointX2 = endX - unitDx * arrowHeadSize + unitDy * arrowHeadSize;
+                var arrowPointY2 = endY - unitDy * arrowHeadSize - unitDx * arrowHeadSize;
+                settings.jav_ondraw_context.beginPath();
+
+                settings.jav_ondraw_context.moveTo(endX, endY);
+                settings.jav_ondraw_context.lineTo(arrowPointX1, arrowPointY1);
+                settings.jav_ondraw_context.lineTo(arrowPointX2, arrowPointY2);
+                settings.jav_ondraw_context.lineTo(endX, endY);
+
+                settings.jav_ondraw_context.fill();
+                settings.jav_ondraw_context.stroke();
+                settings.jav_ondraw_context.closePath();
+            }
+
+
+            /**
+             * end of paint tools functions
+             */
 
             /**
              * detect option functions
