@@ -73,6 +73,8 @@
         jav_ondraw_context: null,
         jav_actual_context: null,
 
+        ondraw_required_tools: ["line", "arrow", "square", "circle", "text"],
+
         is_mouse_down: false,
 
         mouse_down_x: null,
@@ -167,6 +169,12 @@
             "</div></div>",
 
         advance_option_backdrop_html: "<div class='lic_imageeditor-advance-option-backdrop'></div>",
+
+        text_html: "<div class='text-option'>" +
+            "<label for='range-size'>Text Size</label>" +
+            "<input type='range' max='40' min='8' id='range-size' value='10'>" +
+            "<input type='text' id='txt-text'>" +
+            "</div>",
 
         brightness_html: "<div class='brightness-option'>" +
             "<label for='range-brightness'>Brightness</label>" +
@@ -667,8 +675,10 @@
 
                 $("body").mouseup(function () {
                     settings.is_mouse_down = false;
-                    settings.jav_actual_context.drawImage(settings.jav_ondraw_canvas, 0, 0);
-                    settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                    if ($.inArray(settings.selected_tool, settings.ondraw_required_tools) != -1) {
+                        settings.jav_actual_context.drawImage(settings.jav_ondraw_canvas, 0, 0);
+                        settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                    }
                 });
 
                 settings.ondraw_image.mousemove(function (e) {
@@ -687,15 +697,32 @@
                                 arrow_ondraw(e.pageX, e.pageY);
                                 break;
                             case "square":
+                                square_ondraw(e.pageX, e.pageY);
                                 console.log("square");
                                 break;
                             case "circle":
-                                console.log("circle");
+                                circle_ondraw(e.pageX, e.pageY);
                                 break;
                             case "eyedropper":
-                                console.log("eyedropper");
+                                eyedropper_onpick(e.pageX, e.pageY);
                                 break;
                         }
+                    }
+                });
+
+                settings.ondraw_image.click(function (e) {
+                    if (settings.selected_tool == "text") {
+                        var mouse_x = e.pageX - settings.ondraw_image.offset().left;
+                        var mouse_y = e.pageY - settings.ondraw_image.offset().top;
+
+                        open_advance_option_box(settings.btn_text.offset().left, settings.btn_text.offset().top);
+                        settings.advance_option_container.prepend(settings.text_html);
+                        settings.advance_option_container.find("#range-size").change(function () {
+                            text_ondraw(settings.advance_option_container.find("#txt-text").val(), $(this).val(), mouse_x, mouse_y);
+                        });
+                        settings.advance_option_container.find("#txt-text").keyup(function () {
+                            text_ondraw($(this).val(), settings.advance_option_container.find("#range-size").val(), mouse_x, mouse_y);
+                        });
                     }
                 });
             };
@@ -758,6 +785,7 @@
              * 3. add backdrop
              */
             var open_advance_option_box = function (mouse_x, mouse_y) {
+                clear_selected_tool();
                 $('body').append(settings.advance_option_html);
                 settings.advance_option_container = $('body').find('.advance-option-box');
                 $('body').append(settings.advance_option_backdrop_html);
@@ -877,6 +905,7 @@
                 settings.toolbar_container.find(".tool-paint article span").each(function () {
                     $(this).removeClass("selected-tool");
                 });
+                settings.selected_tool = null;
             };
 
 
@@ -978,11 +1007,11 @@
                 settings.jav_ondraw_context.closePath();
             };
 
-            var arrow_ondraw = function(mouse_x, mouse_y){
+            var arrow_ondraw = function (mouse_x, mouse_y) {
                 settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
                 settings.jav_ondraw_context.lineCap = "round";
                 settings.jav_ondraw_context.strokeStyle = settings.btn_color.css("background-color");
-//                settings.jav_ondraw_context.fillStyle = settings.btn_color.css("background-color");
+                settings.jav_ondraw_context.fillStyle = settings.btn_color.css("background-color");
                 settings.jav_ondraw_context.lineWidth = settings.range_thickness.val();
 
                 settings.jav_ondraw_context.beginPath();
@@ -1012,7 +1041,62 @@
                 settings.jav_ondraw_context.fill();
                 settings.jav_ondraw_context.stroke();
                 settings.jav_ondraw_context.closePath();
-            }
+            };
+
+            var square_ondraw = function (mouse_x, mouse_y) {
+                settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                settings.jav_ondraw_context.lineWidth = settings.range_thickness.val();
+                settings.jav_ondraw_context.lineCap = "round";
+                settings.jav_ondraw_context.strokeStyle = settings.btn_color.css("background-color");
+
+                settings.jav_ondraw_context.beginPath();
+                settings.jav_ondraw_context.rect(settings.mouse_down_x, settings.mouse_down_y, mouse_x - settings.ondraw_image.offset().left - settings.mouse_down_x, mouse_y - settings.ondraw_image.offset().top - settings.mouse_down_y);
+                settings.jav_ondraw_context.stroke();
+                settings.jav_ondraw_context.closePath();
+            };
+
+            var circle_ondraw = function (mouse_x, mouse_y) {
+                settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                settings.jav_ondraw_context.lineWidth = settings.range_thickness.val();
+                settings.jav_ondraw_context.strokeStyle = settings.btn_color.css("background-color");
+
+
+                settings.jav_ondraw_context.beginPath();
+                var w = (mouse_x - settings.ondraw_image.offset().left) - settings.mouse_down_x;
+                var h = (mouse_y - settings.ondraw_image.offset().top) - settings.mouse_down_y;
+
+                var kappa = 0.5522848,
+                    ox = (w / 2) * kappa, // control point offset horizontal
+                    oy = (h / 2) * kappa, // control point offset vertical
+                    xe = settings.mouse_down_x + w,           // x-end
+                    ye = settings.mouse_down_y + h,           // y-end
+                    xm = settings.mouse_down_x + w / 2,       // x-middle
+                    ym = settings.mouse_down_y + h / 2;       // y-middle
+                settings.jav_ondraw_context.beginPath();
+                settings.jav_ondraw_context.moveTo(settings.mouse_down_x, ym);
+                settings.jav_ondraw_context.bezierCurveTo(settings.mouse_down_x, ym - oy, xm - ox, settings.mouse_down_y, xm, settings.mouse_down_y);
+                settings.jav_ondraw_context.bezierCurveTo(xm + ox, settings.mouse_down_y, xe, ym - oy, xe, ym);
+                settings.jav_ondraw_context.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+                settings.jav_ondraw_context.bezierCurveTo(xm - ox, ye, settings.mouse_down_x, ym + oy, settings.mouse_down_x, ym);
+                settings.jav_ondraw_context.stroke();
+                settings.jav_ondraw_context.closePath();
+            };
+
+            var text_ondraw = function (content, size, mouse_x, mouse_y) {
+                settings.jav_ondraw_context.clearRect(0, 0, settings.canvas_width, settings.canvas_height);
+                settings.jav_ondraw_context.font = size + "px Arial";
+                settings.jav_ondraw_context.fillStyle = settings.btn_color.css("background-color");
+                settings.jav_ondraw_context.fillText(content, mouse_x, mouse_y);
+            };
+
+            var eyedropper_onpick = function (mouse_x, mouse_y) {
+                var imageData = settings.jav_actual_context.getImageData(mouse_x - settings.actual_image.offset().left, mouse_y - settings.actual_image.offset().top, 1, 1);
+                var data = imageData.data;
+                var red = data[0];
+                var green = data[1];
+                var blue = data[2];
+                settings.btn_color.css("background", 'rgb(' + red + ',' + green + ',' + blue + ')');
+            };
 
 
             /**
