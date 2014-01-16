@@ -22,17 +22,75 @@
 
 .advance-option-box {
     position: fixed;
-    background-color: #FFFFFF;
+    background-color: #c7c7c7;
     border: 1px solid #999999;
     z-index: 10006;
     min-width: 100px;
     min-height: 100px;
+    box-shadow: 0 0 20px #FFFFFF;
 }
 
 .advance-option-box .advance-option-footer {
     position: absolute;
     bottom: 0;
     right: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.advance-option-box #btn-ok, .advance-option-box #btn-cancel {
+    background: #363636 linear-gradient(to bottom, #444444, #222222) repeat-x;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    border-image: none;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 4px 12px;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.advance-option-box input[type=range]{
+    border-radius: 30px;
+}
+
+.advance-option-box input[type=text]
+{
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    color: #808080;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 18px;
+    vertical-align: middle;
+    background-color: #FFFFFF;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    height: 20px;
+    margin-left: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: normal;
+}
+
+.advance-option-box input[type=text]:focus{
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+    outline: 0 none;
+}
+
+.advance-option-box label{
+    font-family: 'BebasNeueRegular','Arial Narrow',Arial,sans-serif;
 }
 
 .lic_imageeditor-box {

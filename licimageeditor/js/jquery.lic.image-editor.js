@@ -164,16 +164,17 @@
         canvas_html: "<div class='canvas-container'><canvas class='ondraw-image'></canvas><canvas class='actual-image'></canvas></div>",
 
         advance_option_html: "<div class='advance-option-box'><div class='advance-option-footer'>" +
-            "<button id='btn-ok'>OK</button>" +
-            "<button id='btn-cancel'>Cancel</button>" +
+            "<span id='btn-ok'>OK</span>" +
+            "<span id='btn-cancel'>Cancel</span>" +
             "</div></div>",
 
         advance_option_backdrop_html: "<div class='lic_imageeditor-advance-option-backdrop'></div>",
 
         text_html: "<div class='text-option'>" +
-            "<label for='range-size'>Text Size</label>" +
-            "<input type='range' max='40' min='8' id='range-size' value='10'>" +
-            "<input type='text' id='txt-text'>" +
+            "<div><label for='range-size'>Text Size</label>" +
+            "<input type='range' max='40' min='8' id='range-size' value='10'></div>" +
+            "<div><label for='txt-text'>Content</label>" +
+            "<input type='text' id='txt-text'></div>" +
             "</div>",
 
         brightness_html: "<div class='brightness-option'>" +
