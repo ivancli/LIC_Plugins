@@ -26,16 +26,14 @@
     border: 1px solid #999999;
     z-index: 10006;
     min-width: 100px;
-    min-height: 100px;
     box-shadow: 0 0 20px #FFFFFF;
 }
 
 .advance-option-box .advance-option-footer {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
+    float: right;
 }
 
 .advance-option-box #btn-ok, .advance-option-box #btn-cancel {

@@ -171,49 +171,65 @@
         advance_option_backdrop_html: "<div class='lic_imageeditor-advance-option-backdrop'></div>",
 
         text_html: "<div class='text-option'>" +
-            "<div><label for='range-size'>Text Size</label>" +
-            "<input type='range' max='40' min='8' id='range-size' value='10'></div>" +
-            "<div><label for='txt-text'>Content</label>" +
-            "<input type='text' id='txt-text'></div>" +
+            "<table>" +
+            "<tr><td><label for='range-size'>Text Size</label></td>" +
+            "<td><input type='range' max='40' min='8' id='range-size' value='10'></td></tr>" +
+            "<tr><td><label for='txt-text'>Content</label></td>" +
+            "<td><input type='text' id='txt-text'></td></tr>" +
+            "</table>" +
             "</div>",
 
         brightness_html: "<div class='brightness-option'>" +
-            "<label for='range-brightness'>Brightness</label>" +
-            "<input type='range' id='range-brightness' max='150' min='-150' value='0'>" +
+            "<table>" +
+            "<tr><td><label for='range-brightness'>Brightness</label></td>" +
+            "<td><input type='range' id='range-brightness' max='150' min='-150' value='0'></td></tr>" +
+            "</table>" +
             "</div>",
         contrast_html: "<div class='contrast-option'>" +
-            "<label for='range-contrast'>Contrast</label> " +
-            "<input type='range' id='range-contrast' max='3' min='-1' step='0.1' value='0'>" +
+            "<table>" +
+            "<tr><td><label for='range-contrast'>Contrast</label></td>" +
+            "<td><input type='range' id='range-contrast' max='3' min='-1' step='0.1' value='0'></td></tr>" +
+            "</table>" +
             "</div>",
         hue_html: "<div class='hue-option'>" +
-            "<label for='range-hue'>Hue</label> " +
-            "<input type='range' id='range-hue' max='180' min='-180' value='0'>" +
+            "<table>" +
+            "<tr><td><label for='range-hue'>Hue</label></td>" +
+            "<td><input type='range' id='range-hue' max='180' min='-180' value='0'></td></tr>" +
+            "</table>" +
             "</div>",
         unsharp_mask_html: "<div class='unsharp-mask-option'>" +
-            "<label for='range-amount'>Amount</label> " +
-            "<input type='range' id='range-amount' max='500' min='0' value='0'>" +
-            "<label for='range-radius'>Radius</label> " +
-            "<input type='range' id='range-radius' max='5' min='0' value='0' step='0.05'>" +
-            "<label for='range-threshold'>Threshold</label> " +
-            "<input type='range' id='range-threshold' max='255' min='0' value='0'>" +
+            "<table>" +
+            "<tr><td><label for='range-amount'>Amount</label></td>" +
+            "<td><input type='range' id='range-amount' max='500' min='0' value='0'></td></tr>" +
+            "<tr><td><label for='range-radius'>Radius</label></td>" +
+            "<td><input type='range' id='range-radius' max='5' min='0' value='0' step='0.05'></td></tr>" +
+            "<tr><td><label for='range-threshold'>Threshold</label></td>" +
+            "<td><input type='range' id='range-threshold' max='255' min='0' value='0'></td></tr>" +
+            "</table>" +
             "</div>",
         posterise_html: "<div class='posterise-option'>" +
-            "<label for='range-level'>Level</label> " +
-            "<input type='range' id='range-level' max='32' min='1' value='32'>" +
+            "<table>" +
+            "<tr><td><label for='range-level'>Level</label></td>" +
+            "<td><input type='range' id='range-level' max='32' min='1' value='32'></td></tr>" +
+            "</table>" +
             "</div>",
         noise_html: "<div class='noise-option'>" +
-            "<label for='range-amount'>Amount</label> " +
-            "<input type='range' id='range-amount' max='1' min='0' value='0' step='0.01'>" +
-            "<label for='range-strength'>Strength</label> " +
-            "<input type='range' id='range-strength' max='1' min='0' value='0' step='0.01'>" +
-            "<label for='range-monochromatic'>Monochromatic</label> " +
-            "<input type='checkbox' id='chk-monochromatic'>" +
+            "<table>" +
+            "<tr><td><label for='range-amount'>Amount</label></td>" +
+            "<td><input type='range' id='range-amount' max='1' min='0' value='0' step='0.01'></td></tr>" +
+            "<tr><td><label for='range-strength'>Strength</label></td>" +
+            "<td><input type='range' id='range-strength' max='1' min='0' value='0' step='0.01'></td></tr>" +
+            "<tr><td><label for='range-monochromatic'>Monochromatic</label></td>" +
+            "<td><input type='checkbox' id='chk-monochromatic'></td></tr>" +
+            "</table>" +
             "</div>",
         glow_html: "<div class='glow-option'>" +
-            "<label for='range-amount'>Amount</label> " +
-            "<input type='range' id='range-amount' max='1' min='0' value='0' step='0.01'>" +
-            "<label for='range-radius'>Radius</label>" +
-            "<input type='range' id='range-radius' max='1' min='0' value='0' step='0.01'>" +
+            "<table>" +
+            "<tr><td><label for='range-amount'>Amount</label></td>" +
+            "<td><input type='range' id='range-amount' max='1' min='0' value='0' step='0.01'></td></tr>" +
+            "<tr><td><label for='range-radius'>Radius</label>" +
+            "<input type='range' id='range-radius' max='1' min='0' value='0' step='0.01'></td></tr>" +
+            "</table>" +
             "</div>"
     };
 
