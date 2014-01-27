@@ -227,8 +227,8 @@
             "<table>" +
             "<tr><td><label for='range-amount'>Amount</label></td>" +
             "<td><input type='range' id='range-amount' max='1' min='0' value='0' step='0.01'></td></tr>" +
-            "<tr><td><label for='range-radius'>Radius</label>" +
-            "<input type='range' id='range-radius' max='1' min='0' value='0' step='0.01'></td></tr>" +
+            "<tr><td><label for='range-radius'>Radius</label></td>" +
+            "<td><input type='range' id='range-radius' max='1' min='0' value='0' step='0.01'></td></tr>" +
             "</table>" +
             "</div>"
     };
